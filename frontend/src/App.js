@@ -1,9 +1,20 @@
-function App() {
-  return (
-    <>
-     <h1>Welcome to ShopCluz</h1>
-    </>
-  );
-}
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Container } from "react-bootstrap";
+import HomeScreen from "./Screens/HomeScreen";
+
+const App = function () {
+	return (
+		<>
+			<Header />
+			<main className="py-3">
+				<Container>
+				  <HomeScreen/>	
+				</Container>
+			</main>
+			<Footer />
+		</>
+	);
+};
 
 export default App;
