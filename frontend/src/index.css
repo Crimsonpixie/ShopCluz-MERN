@@ -1,3 +1,6 @@
 main{
    min-height: 80vh; 
 }
+.rating span:nth-child(6){
+  margin:0.1rem  
+}
