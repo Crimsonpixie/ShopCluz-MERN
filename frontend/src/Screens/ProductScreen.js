@@ -12,7 +12,7 @@ const ProductScreen = () => {
 			setProduct(data);
 		};
 		fetchProducts();
-	}, []);
+	}, [params]);
 	return (
 		<>
 			<Link className="btn btn-dark my-3" to="/">
