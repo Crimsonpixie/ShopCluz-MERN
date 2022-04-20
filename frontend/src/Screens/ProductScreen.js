@@ -1,23 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Card, ListGroup, Button, Image } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import {
+	Row,
+	Col,
+	Card,
+	ListGroup,
+	Button,
+	Image,
+	Form,
+} from "react-bootstrap";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Rating from "../components/Rating";
 import { productDetailsAction } from "../store/actions/productDetailsActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const ProductScreen = () => {
+	const [qty, setQty] = useState(1);
 	const productDetails = useSelector((state) => state.productDetails);
 	const { product, loading, error } = productDetails;
 	const dispatch = useDispatch();
 	const params = useParams();
+	const history = useNavigate();
 	useEffect(() => {
 		dispatch(productDetailsAction(params.id));
 	}, [params, dispatch]);
+
+	function addToCartHandler() {
+		history(`/cart/${params.id}?qty=${qty}`);
+	}
 	return (
 		<>
-			<Link className="btn btn-dark my-3" to="/">
+			<Link className="btn btn-light my-3" to="/">
 				Go Back
 			</Link>
 			{loading ? (
@@ -61,8 +75,29 @@ const ProductScreen = () => {
 										</Col>
 									</Row>
 								</ListGroup.Item>
+								{product.countInStock > 0 && (
+									<ListGroup.Item>
+										<Row>
+											<Col className="my-auto">Qty:</Col>
+											<Col>
+												<Form.Control
+													as="select"
+													value={qty}
+													onChange={(e) => setQty(e.target.value)}
+												>
+													{[...Array(product.countInStock).keys()].map((x) => (
+														<option key={x + 1} value={x + 1}>
+															{x + 1}
+														</option>
+													))}
+												</Form.Control>
+											</Col>
+										</Row>
+									</ListGroup.Item>
+								)}
 								<ListGroup.Item style={{ textAlign: "center" }}>
 									<Button
+										onClick={addToCartHandler}
 										style={{ width: "100%" }}
 										className="btn-block"
 										type="button"
