@@ -1,10 +1,10 @@
 import express from "express";
-import products from "./data/products.js";
 import connectDB from "./config/db.js";
 import colors from "colors";
 import dotenv from "dotenv";
 import productRoutes from "./routes/ProductRouter.js";
 import userRoutes from "./routes/userRouter.js";
+import orderRoutes from "./routes/orderRouter.js";
 import { notFound, errorMiddleware } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -20,6 +20,7 @@ app.use(express.json());
 //This routing handler is above the middleware to avoid collision with the below middleware
 app.use("/api/products", productRoutes); //Routing level middleware
 app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use(notFound);
 

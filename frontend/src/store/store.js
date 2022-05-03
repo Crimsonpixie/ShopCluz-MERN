@@ -10,6 +10,7 @@ import {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 } from "./reducers/userReducers.js";
+import {createOrderReducer,orderDetailsReducer} from "./reducers/orderReducers";
 
 const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
 	? JSON.parse(localStorage.getItem("cartItems"))
@@ -31,6 +32,8 @@ const reducer = combineReducers({
 	userRegister: userRegisterReducer,
 	userDetails: userDetailsReducer,
 	userUpdateProfile: userUpdateProfileReducer,
+    orderCreate:createOrderReducer,
+    orderDetails:orderDetailsReducer 
 });
 
 const initialState = {
