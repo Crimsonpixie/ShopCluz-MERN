@@ -3,6 +3,11 @@ import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/actions/userActions";
+import {
+	USER_DETAILS_RESET,
+	MY_ORDERS_LIST_RESET,
+	USER_LIST_RESET,
+} from "../store/actions/actionTypes";
 
 const Header = () => {
 	const dispatch = useDispatch();
@@ -11,6 +16,9 @@ const Header = () => {
 
 	const logoutHandler = () => {
 		dispatch(logout());
+		dispatch({ type: USER_DETAILS_RESET });
+		dispatch({ type: MY_ORDERS_LIST_RESET });
+		dispatch({type:USER_LIST_RESET});
 	};
 	return (
 		<header>
@@ -49,6 +57,20 @@ const Header = () => {
 										<i className="fas fa-user"></i> Sign In
 									</Nav.Link>
 								</LinkContainer>
+							)}
+							{userInfo && userInfo.isAdmin && (
+								<NavDropdown title="Admin" id="adminmenu">
+									<LinkContainer to="/admin/userlist">
+										<NavDropdown.Item>Users</NavDropdown.Item>
+									</LinkContainer>
+									<LinkContainer to="/admin/productlist">
+										<NavDropdown.Item>Products</NavDropdown.Item>
+									</LinkContainer>
+									<LinkContainer to="/admin/orderlist">
+										<NavDropdown.Item>Orders</NavDropdown.Item>
+									</LinkContainer>
+									
+								</NavDropdown>
 							)}
 						</Nav>
 					</Navbar.Collapse>

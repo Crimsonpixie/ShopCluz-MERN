@@ -9,8 +9,15 @@ import {
 	userRegisterReducer,
 	userDetailsReducer,
 	userUpdateProfileReducer,
+	usersListReducer,
+	userRemoveReducer,
 } from "./reducers/userReducers.js";
-import {createOrderReducer,orderDetailsReducer} from "./reducers/orderReducers";
+import {
+	createOrderReducer,
+	orderDetailsReducer,
+	orderPayReducer,
+	myOrdersReducer,
+} from "./reducers/orderReducers";
 
 const cartItemsFromLocalStorage = localStorage.getItem("cartItems")
 	? JSON.parse(localStorage.getItem("cartItems"))
@@ -32,8 +39,12 @@ const reducer = combineReducers({
 	userRegister: userRegisterReducer,
 	userDetails: userDetailsReducer,
 	userUpdateProfile: userUpdateProfileReducer,
-    orderCreate:createOrderReducer,
-    orderDetails:orderDetailsReducer 
+	orderCreate: createOrderReducer,
+	orderDetails: orderDetailsReducer,
+	payOrder: orderPayReducer,
+	myOrders: myOrdersReducer,
+	userList: usersListReducer,
+	userRemove: userRemoveReducer,
 });
 
 const initialState = {

@@ -64,6 +64,10 @@ const userDetailsReducer = (state = { user: {} }, action) => {
 				loading: false,
 				error: action.payload,
 			};
+		case actionTypes.USER_DETAILS_RESET:
+			return {
+				user: {},
+			};
 		default:
 			return state;
 	}
@@ -91,9 +95,58 @@ const userUpdateProfileReducer = (state = {}, action) => {
 	}
 };
 
+const usersListReducer = (state = { users: [] }, action) => {
+	switch (action.type) {
+		case actionTypes.USER_LIST_REQUEST:
+			return {
+				...state,
+				loading: true,
+			};
+		case actionTypes.USER_LIST_SUCCESS:
+			return {
+				...state,
+				users: action.payload,
+				loading: false,
+			};
+		case actionTypes.USER_LIST_FAILURE:
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
+		case actionTypes.USER_LIST_RESET:
+			return { users: [] };
+		default:
+			return state;
+	}
+};
+
+const userRemoveReducer = (state = { }, action) => {
+	switch (action.type) {
+		case actionTypes.USER_REMOVE_REQUEST:
+			return {
+				loading: true,
+			};
+		case actionTypes.USER_REMOVE_SUCCESS:
+			return {
+				loading: false,
+                success:true 
+			};
+		case actionTypes.USER_REMOVE_FAILURE:
+			return {
+				loading: false,
+				error: action.payload,
+			};
+		default:
+			return state;
+	}
+};
+
 export {
 	userLoginReducer,
 	userRegisterReducer,
 	userDetailsReducer,
 	userUpdateProfileReducer,
+	usersListReducer,
+	userRemoveReducer
 };
