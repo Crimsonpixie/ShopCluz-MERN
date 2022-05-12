@@ -59,7 +59,21 @@ const updateOrdertoPaid = asyncHandler(async (req, res) => {
 			update_time: req.body.update_time,
 			email_address: req.body.payer.email_address,
 		};
-		const updatedOrder =await order.save();
+		const updatedOrder = await order.save();
+		res.json(updatedOrder);
+	} else {
+		res.status(404);
+		throw new Error("Order not found");
+	}
+});
+
+const updateOrdertoDelivered = asyncHandler(async (req, res) => {
+	const order = await Order.findById(req.params.id);
+
+	if (order) {
+		order.isDelivered = true;
+		order.deliveredAt = Date.now();
+		const updatedOrder = await order.save();
 		res.json(updatedOrder);
 	} else {
 		res.status(404);
@@ -68,8 +82,20 @@ const updateOrdertoPaid = asyncHandler(async (req, res) => {
 });
 
 const getMyOrders = asyncHandler(async (req, res) => {
-	const orders= await Order.find({user:req.user._id});
+	const orders = await Order.find({ user: req.user._id });
 	res.json(orders);
 });
 
-export { addOrderDetails, getOrderById, updateOrdertoPaid,getMyOrders };
+const getAllOrders = asyncHandler(async (req, res) => {
+	const orders = await Order.find({}).populate("user", "id name");
+	res.json(orders);
+});
+
+export {
+	addOrderDetails,
+	getOrderById,
+	updateOrdertoPaid,
+	updateOrdertoDelivered,
+	getMyOrders,
+	getAllOrders,
+};

@@ -39,6 +39,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
 				paymentMethod: action.payload,
 			}	
+		case actionTypes.CART_RESET:
+			return {
+				cartItems:[]
+			}	
 		default:
 			return state;
 	}

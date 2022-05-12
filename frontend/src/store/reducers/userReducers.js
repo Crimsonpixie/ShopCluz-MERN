@@ -121,7 +121,7 @@ const usersListReducer = (state = { users: [] }, action) => {
 	}
 };
 
-const userRemoveReducer = (state = { }, action) => {
+const userRemoveReducer = (state = {}, action) => {
 	switch (action.type) {
 		case actionTypes.USER_REMOVE_REQUEST:
 			return {
@@ -130,12 +130,37 @@ const userRemoveReducer = (state = { }, action) => {
 		case actionTypes.USER_REMOVE_SUCCESS:
 			return {
 				loading: false,
-                success:true 
+				success: true,
 			};
 		case actionTypes.USER_REMOVE_FAILURE:
 			return {
 				loading: false,
 				error: action.payload,
+			};
+		default:
+			return state;
+	}
+};
+
+const userUpdateReducer = (state = { user: {} }, action) => {
+	switch (action.type) {
+		case actionTypes.USER_UPDATE_REQUEST:
+			return {
+				loading: true,
+			};
+		case actionTypes.USER_UPDATE_SUCCESS:
+			return {
+				loading: false,
+				success: true,
+			};
+		case actionTypes.USER_UPDATE_FAILURE:
+			return {
+				loading: false,
+				error: action.payload,
+			};
+		case actionTypes.USER_UPDATE_RESET:
+			return {
+				user: {},
 			};
 		default:
 			return state;
@@ -148,5 +173,6 @@ export {
 	userDetailsReducer,
 	userUpdateProfileReducer,
 	usersListReducer,
-	userRemoveReducer
+	userRemoveReducer,
+	userUpdateReducer,
 };

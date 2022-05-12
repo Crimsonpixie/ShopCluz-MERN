@@ -7,6 +7,7 @@ import {
 	USER_DETAILS_RESET,
 	MY_ORDERS_LIST_RESET,
 	USER_LIST_RESET,
+	CART_RESET,
 } from "../store/actions/actionTypes";
 
 const Header = () => {
@@ -18,7 +19,8 @@ const Header = () => {
 		dispatch(logout());
 		dispatch({ type: USER_DETAILS_RESET });
 		dispatch({ type: MY_ORDERS_LIST_RESET });
-		dispatch({type:USER_LIST_RESET});
+		dispatch({ type: USER_LIST_RESET });
+		dispatch({ type: CART_RESET });
 	};
 	return (
 		<header>
@@ -69,7 +71,6 @@ const Header = () => {
 									<LinkContainer to="/admin/orderlist">
 										<NavDropdown.Item>Orders</NavDropdown.Item>
 									</LinkContainer>
-									
 								</NavDropdown>
 							)}
 						</Nav>

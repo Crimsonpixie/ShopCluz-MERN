@@ -150,7 +150,7 @@ export const removeUser = (id) => async (dispatch, getState) => {
 				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
-		const { data } = await axios.delete(`/api/users/${id}`, config);
+		await axios.delete(`/api/users/${id}`, config);
 		dispatch({ type: actionTypes.USER_REMOVE_SUCCESS });
 	} catch (error) {
 		const payload =
@@ -159,6 +159,33 @@ export const removeUser = (id) => async (dispatch, getState) => {
 				: error.message;
 		dispatch({
 			type: actionTypes.USER_REMOVE_FAILURE,
+			payload,
+		});
+	}
+};
+
+export const updateUser = (user) => async (dispatch, getState) => {
+	try {
+		dispatch({ type: actionTypes.USER_UPDATE_REQUEST });
+		const {
+			userLogin: { userInfo },
+		} = getState();
+		const config = {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${userInfo.token}`,
+			},
+		};
+		const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+		dispatch({ type: actionTypes.USER_UPDATE_SUCCESS });
+		dispatch({ type: actionTypes.USER_DETAILS_SUCCESS, payload: data });
+	} catch (error) {
+		const payload =
+			error.response && error.response.data.message
+				? error.response.data.message
+				: error.message;
+		dispatch({
+			type: actionTypes.USER_UPDATE_FAILURE,
 			payload,
 		});
 	}

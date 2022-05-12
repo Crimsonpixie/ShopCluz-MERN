@@ -1,12 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-	product: {reviews:[]},
+	product: { reviews: [] },
 	loading: false,
 	error: null,
 };
 
-const reducer = (state = initialState, action) => {
+const productDetailsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.PRODUCT_DETAILS_REQUEST:
 			return {
@@ -16,13 +16,36 @@ const reducer = (state = initialState, action) => {
 		case actionTypes.PRODUCT_DETAILS_SUCCESS:
 			return {
 				...state,
-                loading:false,
+				loading: false,
 				product: action.payload,
 			};
 		case actionTypes.PRODUCT_DETAILS_FAILURE:
 			return {
 				...state,
-                loading:false,
+				loading: false,
+				error: action.payload,
+			};
+		case actionTypes.PRODUCT_DETAILS_RESET:
+			return {};
+		default:
+			return state;
+	}
+};
+
+const productDeleteReducer = (state = {}, action) => {
+	switch (action.type) {
+		case actionTypes.PRODUCT_DELETE_REQUEST:
+			return {
+				loading: true,
+			};
+		case actionTypes.PRODUCT_DELETE_SUCCESS:
+			return {
+				loading: false,
+				success: true,
+			};
+		case actionTypes.PRODUCT_DELETE_FAILURE:
+			return {
+				loading: false,
 				error: action.payload,
 			};
 		default:
@@ -30,4 +53,57 @@ const reducer = (state = initialState, action) => {
 	}
 };
 
-export default reducer;
+const productCreateReducer = (state = {}, action) => {
+	switch (action.type) {
+		case actionTypes.PRODUCT_CREATE_REQUEST:
+			return {
+				loading: true,
+			};
+		case actionTypes.PRODUCT_CREATE_SUCCESS:
+			return {
+				product: action.payload,
+				loading: false,
+				success: true,
+			};
+		case actionTypes.PRODUCT_CREATE_FAILURE:
+			return {
+				loading: false,
+				error: action.payload,
+			};
+		case actionTypes.PRODUCT_CREATE_RESET:
+			return {};
+		default:
+			return state;
+	}
+};
+
+const productUpdateReducer = (state = { product: {} }, action) => {
+	switch (action.type) {
+		case actionTypes.PRODUCT_UPDATE_REQUEST:
+			return {
+				loading: true,
+			};
+		case actionTypes.PRODUCT_UPDATE_SUCCESS:
+			return {
+				product: action.payload,
+				loading: false,
+				success: true,
+			};
+		case actionTypes.PRODUCT_UPDATE_FAILURE:
+			return {
+				loading: false,
+				error: action.payload,
+			};
+		case actionTypes.PRODUCT_UPDATE_RESET:
+			return { product: {} };
+		default:
+			return state;
+	}
+};
+
+export {
+	productDeleteReducer,
+	productDetailsReducer,
+	productCreateReducer,
+	productUpdateReducer,
+};
