@@ -9,6 +9,7 @@ import {
 	USER_LIST_RESET,
 	CART_RESET,
 } from "../store/actions/actionTypes";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
 	const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Header = () => {
 					</LinkContainer>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
+						<SearchBox/>
 						<Nav
 							className="mr-auto"
 							style={{

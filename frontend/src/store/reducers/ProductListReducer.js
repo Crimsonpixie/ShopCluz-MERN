@@ -16,7 +16,9 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: false,
-				products: action.payload,
+				products: action.payload.products,
+				pages: action.payload.pages,
+				page: action.payload.page,
 			};
 		case actionTypes.PRODUCT_LIST_FAILURE:
 			return {
