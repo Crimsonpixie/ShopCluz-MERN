@@ -14,10 +14,10 @@ const router = express.Router();
 router.route("/").get(getProducts).post(protect, adminAuth, createProduct);
 router.route("/top").get(getTopProducts);
 router
-	.route("/:id")
-	.get(getProductById)
-	.delete(protect, adminAuth, deleteProduct)
-	.put(protect, adminAuth, updateProduct);
+.route("/:id")
+.get(getProductById)
+.delete(protect, adminAuth, deleteProduct)
+.put(protect, adminAuth, updateProduct);
 
 router.route("/:id/reviews").post(protect, addReviews);
 

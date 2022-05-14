@@ -1,13 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Form } from "react-bootstrap";
 import countryList from "react-select-country-list";
 
 function CountrySelector({ currentValue, defaultValue }) {
-	const [value, setValue] = useState("");
 	const options = useMemo(() => countryList().getData(), []);
 
 	const changeHandler = (e) => {
-		setValue(e.target.value);
 		currentValue(e.target.value);
 	};
 
